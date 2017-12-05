@@ -1,0 +1,122 @@
+@import './theme.less';
+@import './reset.less';
+@import './antd.fix.less';
+
+/**
+ * height: 100%
+ */
+html, body {
+  min-height: 100%;
+  min-width: 100%;
+  width: 100%;
+  background-color: #e9e9e9;
+}
+
+/**
+ * 界面风格
+ */
+.yzy-page {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background-color: #e9e9e9;
+  min-width: 1000px;
+}
+
+
+/**
+ * form
+ */
+.yzy-search-form-wrap {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/**
+ * list
+ */
+.yzy-list-wrap {
+  background-color: #fff;
+  padding: 20px;
+
+  .yzy-list-btns-wrap {
+    display: flex;
+    justify-content: 'flex-start';
+    margin-bottom: 10px;
+  }
+
+  .yzy-list-content-title {
+    font-size: 16px;
+    border-left: 5px solid @primary-color;
+    padding-left: 5px;
+    margin: 20px 0;
+  }
+}
+
+/**
+ * tab界面
+ */
+.yzy-tab-content-wrap {
+  width: 100%;  
+}
+.yzy-tab-content-item-wrap {  
+  background-color: #fff;
+
+  .yzy-tab-content-title {
+    font-size: 16px;
+    border-left: 5px solid @primary-color;
+    padding-left: 5px;
+    margin: 20px 0;
+  }
+  .yzy-block-right {
+    margin: 10px 0 5px;
+  }
+  .yzy-block-center {
+    margin: 20px;
+  }
+}
+
+/**
+ * editable.table
+ */
+.yzy-table-section {
+  background-color: #fff;
+  padding: 20px;
+}
+.yzy-table-section-title {
+  font-size: 16px;
+  border-left: 5px solid @primary-color;
+  padding-left: 5px;
+  margin: 20px 0;
+}
+.yzy-table-add-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+
+/**
+ * Toast
+ */
+.yzy-toast {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+
+  .yzy-toast-info {
+    padding: 8px 15px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 2px;
+  }
+}

@@ -1,0 +1,59 @@
+/**
+ * antd样式修复
+ */
+@import './theme.less';
+
+.ant-table-row.active {
+  background-color: tint(@primary-color, 90%);
+}
+
+.ant-table-row {
+  .ant-upload-list-item {
+    margin-top: 0;
+  }
+
+  .ant-upload-list-item-info {
+    line-height: 18px;
+  }
+
+  .ant-upload-list-item-name {
+    position: relative;
+    top: 2px;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .anticon {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  /**
+   * 表格中的 upload
+   */
+  .ant-upload-select-picture-card i {
+    font-size: 28px;
+    color: #999;
+  }
+
+  .ant-upload-select-picture-card .ant-upload-text {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+  }
+}
+
+.ant-table-thead span {
+  font-weight: 700;
+}
+/**
+ * ant-table-expanded-row-level-1
+ */
+.ant-table-expanded-row .ant-table-tbody > tr > td {
+  border-bottom: 0;
+}
+
+
+

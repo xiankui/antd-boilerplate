@@ -1,0 +1,13 @@
+{
+  "parserOptions": {
+    "sourceType": "module",
+  },
+  parser: "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "max-len": [1, 9280, 2, {ignoreComments: true}],
+    "prop-types": [0]
+  }
+}
