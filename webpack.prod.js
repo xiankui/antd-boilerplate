@@ -34,7 +34,7 @@ const entries = getEntries('src/views/**/index.jsx');
 const htmlPlugins = Object.keys(entries).map(function (name) {
   // laws         ==> laws.html
   // laws_bigtype ==> laws/bigtype.html
-  let namepath = name.replace(/_/g, '/');
+  // let namepath = name.replace(/_/g, '/');
   
   return new HtmlWebpackPlugin({
       // 生成出来的html文件名

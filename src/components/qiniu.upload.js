@@ -15,7 +15,7 @@ import {
 } from '../common/utils';
 
 // 骑牛验证token
-var uptoken = "W5Fv28XaKurdNr5zjN1fwIb_zLwWw8GwJ6Fnk23E:SwubTIEG7OeBqV747UxeiIvnp70=:eyJzYXZlS2V5IjoiJHt4OnNvdXJjZVR5cGV9LyQoeWVhcikvJChtb24pLyQoZGF5KS8ke2hvdXJ9LyR7bWlufS8ke3NlY30vJCh4OmZpbGVOYW1lKSIsInNjb3BlIjoieXRoYiIsInJldHVybkJvZHkiOiJ7XCJrZXlcIjogJChrZXkpLCBcImhhc2hcIjogJChldGFnKSwgXCJmaWxlUGF0aFwiOiAkKGtleSksIFwiaW1hZ2VXaWR0aFwiOiAkKGltYWdlSW5mby53aWR0aCksIFwiaW1hZ2VIZWlnaHRcIjogJChpbWFnZUluZm8uaGVpZ2h0KSwgXCJmc2l6ZVwiOiAkKGZzaXplKSwgXCJleHRcIjogJChleHQpfSIsImRlYWRsaW5lIjoxNTEwMzA5NjMyfQ==";
+// var uptoken = "W5Fv28XaKurdNr5zjN1fwIb_zLwWw8GwJ6Fnk23E:SwubTIEG7OeBqV747UxeiIvnp70=:eyJzYXZlS2V5IjoiJHt4OnNvdXJjZVR5cGV9LyQoeWVhcikvJChtb24pLyQoZGF5KS8ke2hvdXJ9LyR7bWlufS8ke3NlY30vJCh4OmZpbGVOYW1lKSIsInNjb3BlIjoieXRoYiIsInJldHVybkJvZHkiOiJ7XCJrZXlcIjogJChrZXkpLCBcImhhc2hcIjogJChldGFnKSwgXCJmaWxlUGF0aFwiOiAkKGtleSksIFwiaW1hZ2VXaWR0aFwiOiAkKGltYWdlSW5mby53aWR0aCksIFwiaW1hZ2VIZWlnaHRcIjogJChpbWFnZUluZm8uaGVpZ2h0KSwgXCJmc2l6ZVwiOiAkKGZzaXplKSwgXCJleHRcIjogJChleHQpfSIsImRlYWRsaW5lIjoxNTEwMzA5NjMyfQ==";
 
 const qiniuHost = 'http://up.qiniup.com';
 const uploadData = {};
@@ -39,7 +39,6 @@ class QiniuUpload extends React.Component {
     // }]
 
     this.state = {
-      uptoken: '',
       previewImage: '',
       previewVisible: false,
     }
@@ -47,23 +46,31 @@ class QiniuUpload extends React.Component {
 
   componentDidMount() {
     /**
-     * token 可通过属性传入
+     * uptoken from props or function
      */
-    // uploadData.token = this.props.uptoken;
-    
-    // getQiNiuToken({}).then(res => {
-    //     if (!res.data || !res.data.uptoken) {
-    //         MyToast('getqiniuyun uptoken error');
-    //         return;
-    //     }
+    let {
+      uptoken,
+      getQiNiuToken
+    } = this.props;
 
-    //     this.setState({
-    //       uptoken: res.data.uptoken
-    //     });
-    // }).catch(err => console.log(err));
+    if (uptoken !== undefined) {
+      uploadData.token = uptoken;
+      return;
+    }
 
-    // get qiniu uptoken
-    uploadData.token = uptoken;
+    if (typeof getQiNiuToken !== 'function') return MyToast('请传入七牛云token');
+
+    // else
+    getQiNiuToken({}).then(res => {
+      // console.log('getQiNiuToken-------', res)
+        if (!res.data || !res.data.uptoken) {
+            MyToast('getqiniuyun uptoken error');
+            return;
+        }
+
+        
+        uploadData.token = res.data.uptoken;
+    }).catch(err => console.log(err));
   }
 
   /**
@@ -88,9 +95,14 @@ class QiniuUpload extends React.Component {
   }
 
   beforeUpload(file) {
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    let {
+      maxSize=2
+    } = this.props;
+
+    const isLt2M = file.size / 1024 / 1024 < maxSize;
     if (!isLt2M) {
       MyToast('请选择图片小于2MB!');
+      return;
     }
 
     // get file path 
@@ -102,8 +114,18 @@ class QiniuUpload extends React.Component {
   }
 
   handleUploadChange({file, fileList}) {
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    let {
+      maxSize=2
+    } = this.props;
+
+    const isLt2M = file.size / 1024 / 1024 < maxSize;
     if (!isLt2M) return;
+
+    if (file.status === 'error') {
+      MyToast(file.response.error || '上传失败');
+      this.props.handleUploadedFileList({fileList: fileList.slice(0, -1)});
+      return;
+    }
 
     this.props.handleUploadedFileList({fileList})
 

@@ -29,6 +29,7 @@ class QiniuUploadDemo extends React.Component {
             uploadedFileList={this.state.uploadedFileList}
             handleUploadedFileList={this.handleUploadedFileList.bind(this)}
             maxLength={2}
+            maxSize={5}
             acceptType='image/*'
             uptoken=""
            />
