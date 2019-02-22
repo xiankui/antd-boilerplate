@@ -11,13 +11,14 @@ import {
 } from 'antd';
 
 import moment from 'moment';
-const dateFormat = 'YYYY-MM-DD';
+
 
 import '../../theme/index.less';
 
 import EditableTableSection, { EditableTable } from '../../components/editableTable';
 
 const fileDownloadPath = 'http://oyc0y0ksm.bkt.clouddn.com/';
+const dateFormat = 'YYYY-MM-DD';
 
 // table head
 const columns = [
